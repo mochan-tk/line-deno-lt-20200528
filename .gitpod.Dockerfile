@@ -21,8 +21,6 @@ RUN curl -fsSL https://github.com/denoland/deno/releases/download/v${DENO_VERSIO
     gunzip deno.gz && \
     chmod 777 deno && \
     sudo mv deno /usr/bin/deno && \
-    sudo apt-get remove -y curl && \
-    sudo apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ENTRYPOINT ["deno", "https://deno.land/thumb.ts"]
