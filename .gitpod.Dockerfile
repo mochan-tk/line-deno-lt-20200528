@@ -24,7 +24,7 @@ RUN curl -fsSL https://github.com/denoland/deno/releases/download/v${DENO_VERSIO
     sudo mv deno /usr/bin/deno && \
     sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN mkdir /deno-dir/ && chown gitpod: /deno-dir/
+RUN sudo mkdir /deno-dir/ && sudo chown gitpod: /deno-dir/
 
 ENV DENO_DIR=/deno-dir/
 
