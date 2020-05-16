@@ -17,6 +17,12 @@ RUN sudo chown gitpod: /opt \
 ### Deno ###
 ENV DENO_VERSION=0.2.5
 
-RUN apt-get install -y curl 
+RUN curl -fsSL https://github.com/denoland/deno/releases/download/v${DENO_VERSION}/deno_linux_x64.gz --output deno.gz && \
+    gunzip deno.gz && \
+    chmod 777 deno && \
+    mv deno /usr/bin/deno && \
+    apt-get remove -y curl && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ENTRYPOINT ["deno", "https://deno.land/thumb.ts"]
