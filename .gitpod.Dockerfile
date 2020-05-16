@@ -15,12 +15,19 @@ RUN sudo chown gitpod: /opt \
     && docker-credential-gcr configure-docker
 
 ### Deno ###
-ENV DENO_VERSION=0.2.5
+ENV DENO_VERSION=1.0.0
 
-RUN curl -fsSL https://github.com/denoland/deno/releases/download/v${DENO_VERSION}/deno_linux_x64.gz --output deno.gz && \
-    gunzip deno.gz && \
+RUN curl -fsSL https://github.com/denoland/deno/releases/download/v${DENO_VERSION}/deno-x86_64-unknown-linux-gnu.zip --output deno.gz && \
+    unzip deno.zip && \
+    rm deno.zip  && 
     chmod 777 deno && \
     sudo mv deno /usr/bin/deno && \
     sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-ENTRYPOINT ["deno", "https://deno.land/thumb.ts"]
+RUN mkdir /deno-dir/
+
+ENV DENO_DIR=/deno-dir/
+
+ENTRYPOINT ["deno"]
+
+CMD ["run" "https://deno.land/std/examples/welcome.ts"]
