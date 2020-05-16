@@ -14,6 +14,6 @@ deno run --allow-env --allow-net main.ts
 
 ```
 GCP_PROJECT=$(gcloud config list --format 'value(core.project)' 2>/dev/null)
-gcloud builds submit --tag gcr.io/$GCP_PROJECT/hellodeno
-gcloud run deploy hellodeno --image gcr.io/$GCP_PROJECT/hellodeno --platform managed --allow-unauthenticated
+gcloud builds submit --tag gcr.io/$GCP_PROJECT/line-deno
+gcloud run deploy line-deno --image gcr.io/$GCP_PROJECT/line-deno --platform managed --allow-unauthenticated
 ```
