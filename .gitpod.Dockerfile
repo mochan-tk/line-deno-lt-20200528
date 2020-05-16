@@ -17,7 +17,7 @@ RUN sudo chown gitpod: /opt \
 ### Deno ###
 ENV DENO_VERSION=1.0.0
 
-RUN curl -fsSL https://github.com/denoland/deno/releases/download/v${DENO_VERSION}/deno-x86_64-unknown-linux-gnu.zip --output deno.gz && \
+RUN curl -fsSL https://github.com/denoland/deno/releases/download/v${DENO_VERSION}/deno-x86_64-unknown-linux-gnu.zip --output deno.zip && \
     unzip deno.zip && \
     rm deno.zip  && \
     chmod 777 deno && \
