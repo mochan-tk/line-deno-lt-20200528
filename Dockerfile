@@ -13,6 +13,13 @@ USER deno
 
 # These steps will be re-run upon each file change in your working directory:
 COPY . .
+# Env
+ARG LINE_CHANNEL_SECRET
+ARG LINE_CHANNEL_ACCESS_TOKEN
+ENV LINE_CHANNEL_SECRET=${LINE_CHANNEL_SECRET}
+ENV LINE_CHANNEL_ACCESS_TOKEN=${LINE_CHANNEL_ACCESS_TOKEN}
+RUN echo ${LINE_CHANNEL_SECRET}
+RUN echo ${LINE_CHANNEL_ACCESS_TOKEN}
 # Compile the main app so that it doesn't need to be compiled each startup/entry.
 RUN deno cache main.ts
 

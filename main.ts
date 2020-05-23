@@ -3,7 +3,7 @@ import ky from 'https://deno.land/x/ky/index.js'
 import { HmacSha256 } from "https://deno.land/std/hash/sha256.ts"
 import * as base64 from "https://denopkg.com/chiefbiiko/base64/mod.ts";
 import { encode } from "https://deno.land/std/encoding/utf8.ts";
-import { config } from "https://deno.land/x/dotenv/mod.ts";
+//import { config } from "https://deno.land/x/dotenv/mod.ts";
 
 const app = new App();
 
@@ -23,7 +23,7 @@ app.post("/callback", (req, res,)=> {
             
             const headers = {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + config().LINE_CHANNEL_ACCESS_TOKEN,
+                'Authorization': 'Bearer ' + Deno.env.get('LINE_CHANNEL_ACCESS_TOKEN'),//config().LINE_CHANNEL_ACCESS_TOKEN,
                 'Content-Length': encode(JSON.stringify(body)).byteLength
             }
             const original = ky.create({
@@ -41,7 +41,7 @@ app.post("/callback", (req, res,)=> {
 
 function validate_signature(signature: string, body: string)
 {
-    const algorithm = new HmacSha256(config().LINE_CHANNEL_SECRET);
+    const algorithm = new HmacSha256(String(Deno.env.get('LINE_CHANNEL_SECRET')));//config().LINE_CHANNEL_SECRET);
     const b64: string = base64.fromUint8Array(Uint8Array.from((algorithm.update(body).digest())));
     return signature == b64;
 }

@@ -9,11 +9,15 @@ gcloud services enable cloudbuild.googleapis.com
 ```
 
 ```
-deno run --allow-env --allow-net main.ts
+deno run --allow-env --allow-net --allow-read main.ts
 ```
 
 ```
 GCP_PROJECT=$(gcloud config list --format 'value(core.project)' 2>/dev/null)
-gcloud builds submit --tag gcr.io/$GCP_PROJECT/line-deno
-gcloud run deploy line-deno --image gcr.io/$GCP_PROJECT/line-deno --platform managed --allow-unauthenticated
+SERVICE=line-deno
+LINE_CHANNEL_SECRET=<your secret>
+LINE_CHANNEL_ACCESS_TOKEN=<your access token>
+gcloud builds submit --tag gcr.io/$GCP_PROJECT/${SERVICE}
+gcloud run deploy ${SERVICE} --image gcr.io/$GCP_PROJECT/line-deno --platform managed --allow-unauthenticated
+gcloud run services update ${SERVICE} --set-env-vars LINE_CHANNEL_SECRET=${LINE_CHANNEL_SECRET},LINE_CHANNEL_ACCESS_TOKEN=${LINE_CHANNEL_ACCESS_TOKEN}
 ```
