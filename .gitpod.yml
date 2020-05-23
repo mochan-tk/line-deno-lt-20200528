@@ -1,2 +1,6 @@
 image:
   file: .gitpod.Dockerfile
+
+vscode:
+  extensions:
+    - justjavac.vscode-deno@1.33.0:isaDa2L7SOsJRLd8z5N0sQ==
